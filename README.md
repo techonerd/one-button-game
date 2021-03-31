@@ -12,5 +12,12 @@ It's assumed you have your own IDE ready!
 6. On the left hand side, click `Run in web browser` to get the app visible!
 8. `npm install` to install all necessary dependencies
 
-## Time to Code!
-1. 
+## Extensions
+Interested in continuing the code?
+
+**Ideas to Expand On**
+* Levels - does the game get faster? or maybe gaps get smaller?
+* Showing your score while you play
+* Having a game start screen
+* Having a game over screen
+* Introducing an avatar

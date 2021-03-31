@@ -5,7 +5,7 @@ const Obstacle = ({
     color,
     obstacleWidth, 
     obstacleHeight, 
-    randomBottom, 
+    gapLocation, 
     gap, 
     obstacleLeft}) => {
 
@@ -19,7 +19,7 @@ const Obstacle = ({
                 width: obstacleWidth,
                 height: 500,
                 left: obstacleLeft,
-                bottom: randomBottom + obstacleHeight + gap,
+                bottom: gapLocation + obstacleHeight + gap,
             }}></View>
             <View style={{
                 position: 'absolute',
@@ -27,7 +27,7 @@ const Obstacle = ({
                 width: obstacleWidth,
                 height: obstacleHeight,
                 left: obstacleLeft,
-                bottom: randomBottom,
+                bottom: gapLocation,
             }}></View>
         </>
     )
