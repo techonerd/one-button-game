@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "flappy-birds-react-native",
-    "slug": "flappy-birds-react-native",
+    "name": "One-Button-Game",
+    "slug": "One-Button-Game",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/ryan_square.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/ryan_square.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
