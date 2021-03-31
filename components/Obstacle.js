@@ -9,6 +9,8 @@ const Obstacle = ({
     gap, 
     obstacleLeft}) => {
 
+    // Create two Views that work as the obstacle's top and bottom
+
     return (
         <>
             <View style={{
