@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import Bird from './components/Bird'
-import Obstacles from './components/Obstacles'
+import Obstacle from './components/Obstacle'
 
 export default function App() {
-  const screenWidth = Dimensions.get("screen").width
-  const screenHeight = Dimensions.get("screen").height
+
+  // Get screen dimensions
+  const screenWidth = Dimensions.get("window").width
+  const screenHeight = Dimensions.get("window").height
+
+  // Get bird location
   const birdLeft = screenWidth / 2
   const [birdBottom, setBirdBottom]= useState(screenHeight / 2)
-  const [obstaclesLeft, setObstaclesLeft]= useState(screenWidth)
-  const [obstaclesLeftTwo, setObstaclesLeftTwo]= useState(screenWidth + screenWidth/2 + 30)
-  const [obstaclesNegHeight, setObstaclesNegHeight]= useState(0)
-  const [obstaclesNegHeightTwo, setObstaclesNegHeightTwo]= useState(0)
+
+  // Get obstacle locations
+  const [obstacleLeft, setObstacleLeft]= useState(screenWidth)
+  const [obstacleLeftTwo, setObstacleLeftTwo]= useState(screenWidth + screenWidth/2 + 30)
+  const [obstacleNegHeight, setObstacleNegHeight]= useState(0)
+  const [obstacleNegHeightTwo, setObstacleNegHeightTwo]= useState(0)
+
   const [isGameOver, setIsGameOver]= useState(false)
   const [score, setScore]= useState(0)
   const gravity = 3
@@ -19,8 +26,8 @@ export default function App() {
   let obstacleHeight = 300
   let gap = 200
   let gameTimerId
-  let obstaclesTimerId
-  let obstaclesTimerIdTwo
+  let obstacleTimerId
+  let obstacleTimerIdTwo
   
 //start bird falling
   useEffect(() => {
@@ -46,50 +53,50 @@ export default function App() {
 
   //start first obstacle
   useEffect(() => {
-    if (obstaclesLeft > -60) {
-      obstaclesTimerId = setInterval(() => {
-        setObstaclesLeft(obstaclesLeft => obstaclesLeft - 5)
+    if (obstacleLeft > -60) {
+      obstacleTimerId = setInterval(() => {
+        setObstacleLeft(obstacleLeft => obstacleLeft - 5)
       }, 30)
       return () => {
-        clearInterval(obstaclesTimerId)
+        clearInterval(obstacleTimerId)
       }
     } else {
       setScore(score => score +1)
-      setObstaclesLeft(screenWidth)
-      setObstaclesNegHeight( - Math.random() * 100)
+      setObstacleLeft(screenWidth)
+      setObstacleNegHeight( - Math.random() * 100)
     }
-  }, [obstaclesLeft])
+  }, [obstacleLeft])
 
   //start second obstacle
   useEffect(() => {
-    if (obstaclesLeftTwo > -60) {
-      obstaclesTimerIdTwo = setInterval(() => {
-        setObstaclesLeftTwo(obstaclesLeftTwo => obstaclesLeftTwo - 5)
+    if (obstacleLeftTwo > -60) {
+      obstacleTimerIdTwo = setInterval(() => {
+        setObstacleLeftTwo(obstacleLeftTwo => obstacleLeftTwo - 5)
       }, 30)
         return () => {
-          clearInterval(obstaclesTimerIdTwo)
+          clearInterval(obstacleTimerIdTwo)
         }
       } else {
           setScore(score => score +1)
-          setObstaclesLeftTwo(screenWidth)
-          setObstaclesNegHeightTwo( - Math.random() * 100)
+          setObstacleLeftTwo(screenWidth)
+          setObstacleNegHeightTwo( - Math.random() * 100)
         }
-  }, [obstaclesLeftTwo])
+  }, [obstacleLeftTwo])
 
     //check for collisions
     useEffect(() => {
-      console.log(obstaclesLeft)
+      console.log(obstacleLeft)
       console.log(screenWidth/2)
-      console.log(obstaclesLeft > screenWidth/2)
+      console.log(obstacleLeft > screenWidth/2)
       if (
-        ((birdBottom < (obstaclesNegHeight + obstacleHeight + 30) ||
-        birdBottom > (obstaclesNegHeight + obstacleHeight + gap -30)) &&
-        (obstaclesLeft > screenWidth/2 -30 && obstaclesLeft < screenWidth/2 + 30 )
+        ((birdBottom < (obstacleNegHeight + obstacleHeight + 30) ||
+        birdBottom > (obstacleNegHeight + obstacleHeight + gap -30)) &&
+        (obstacleLeft > screenWidth/2 -30 && obstacleLeft < screenWidth/2 + 30 )
         )
         || 
-        ((birdBottom < (obstaclesNegHeightTwo + obstacleHeight + 30) ||
-        birdBottom > (obstaclesNegHeightTwo + obstacleHeight + gap -30)) &&
-        (obstaclesLeftTwo > screenWidth/2 -30 && obstaclesLeftTwo < screenWidth/2 + 30 )
+        ((birdBottom < (obstacleNegHeightTwo + obstacleHeight + 30) ||
+        birdBottom > (obstacleNegHeightTwo + obstacleHeight + gap -30)) &&
+        (obstacleLeftTwo > screenWidth/2 -30 && obstacleLeftTwo < screenWidth/2 + 30 )
         )
         ) 
         {
@@ -100,8 +107,8 @@ export default function App() {
 
     const gameOver = () => {
       clearInterval(gameTimerId)
-      clearInterval(obstaclesTimerId)
-      clearInterval(obstaclesTimerIdTwo)
+      clearInterval(obstacleTimerId)
+      clearInterval(obstacleTimerIdTwo)
       setIsGameOver(true)
     }
   
@@ -109,26 +116,26 @@ export default function App() {
   return (
     <TouchableWithoutFeedback onPress={jump}>
       <View style={styles.container}>
-        {isGameOver && <Text style={{fontSize: '30px'}}>{score}</Text>}
+        {isGameOver && <Text style={{color: "purple"}}>{score}</Text>}
         <Bird 
           birdBottom = {birdBottom} 
           birdLeft = {birdLeft}
         />
-        <Obstacles 
+        <Obstacle 
           color={'green'}
           obstacleWidth = {obstacleWidth}
           obstacleHeight = {obstacleHeight}
-          randomBottom = {obstaclesNegHeight}
+          randomBottom = {obstacleNegHeight}
           gap = {gap}
-          obstaclesLeft = {obstaclesLeft}
+          obstacleLeft = {obstacleLeft}
         />
-        <Obstacles 
+        <Obstacle 
           color={'yellow'}
           obstacleWidth = {obstacleWidth}
           obstacleHeight = {obstacleHeight}
-          randomBottom = {obstaclesNegHeightTwo}
+          randomBottom = {obstacleNegHeightTwo}
           gap = {gap}
-          obstaclesLeft = {obstaclesLeftTwo}
+          obstacleLeft = {obstacleLeftTwo}
         />
       </View>
     </TouchableWithoutFeedback>

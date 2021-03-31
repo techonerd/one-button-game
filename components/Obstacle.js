@@ -1,13 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
 
-const Obstacles = ({
+const Obstacle = ({
     color,
     obstacleWidth, 
     obstacleHeight, 
     randomBottom, 
     gap, 
-    obstaclesLeft}) => {
+    obstacleLeft}) => {
 
     return (
         <>
@@ -16,7 +16,7 @@ const Obstacles = ({
                 backgroundColor: color,
                 width: obstacleWidth,
                 height: 500,
-                left: obstaclesLeft,
+                left: obstacleLeft,
                 bottom: randomBottom + obstacleHeight + gap,
             }}></View>
             <View style={{
@@ -24,11 +24,11 @@ const Obstacles = ({
                 backgroundColor: color,
                 width: obstacleWidth,
                 height: obstacleHeight,
-                left: obstaclesLeft,
+                left: obstacleLeft,
                 bottom: randomBottom,
             }}></View>
         </>
     )
 }
 
-export default Obstacles
+export default Obstacle
