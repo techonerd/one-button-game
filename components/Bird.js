@@ -8,14 +8,9 @@ const Bird = ({birdBottom, birdLeft}) => {
     const birdHeight = 50
     const birdColor = '#6472EC'
 
+    // Make a square for your "bird"
     return (
         <View style={{
-            position: 'absolute',
-            backgroundColor: birdColor,
-            width: birdWidth,
-            height: birdHeight,
-            left: birdLeft - (birdWidth/2),
-            bottom: birdBottom - (birdHeight/2),
         }}></View>
     )
 }
