@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, ImageBackground, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import Bird from './components/Bird'
 import Obstacle from './components/Obstacle'
 
@@ -43,87 +43,71 @@ export default function App() {
     if (birdBottom > 0) {
       // Every 30 milliseconds, the bird falls down by gravity pixels
       gameTimerId = setInterval(() => {
-        setBirdBottom(birdBottom => birdBottom - gravity)
+        setBirdBottom(birdBottom => birdBottom - 0)
       }, 30)
   
       return () => {
-        clearInterval(gameTimerId)
+      // Clear the interval to make sure that you don't save 
+        clearInterval(0)
       }
     }
     // With birdBottom as a dependency, useEffect will only happen when birdBottom has changed
-  }, [birdBottom])
+  }, [0])
 
   const jump = () => {
-    if (!isGameOver) {
-      if (birdBottom < screenHeight) {
-        setBirdBottom(birdBottom => birdBottom + 60)
-        console.log('Jump triggered')
-      }
+    // if the game isn't over
+    // and the bird is still on the screen
+    // make the bird "jump"
+    if (true) {
+      console.log('Jump triggered')
     }
   }
 
   // Set up first obstacle A
   useEffect(() => {
     // If the obstacle is off the screen
-    if (obstacleALeft > -obstacleWidth) {
+    if (false) {
       // set Interval to refresh every 30 milliseconds to move obstacles left
-      obstacleATimerId = setInterval(() => {
-        setObstacleALeft(obstacleALeft => obstacleALeft - gameSpeed)
-      }, 30)
-      return () => {
-        clearInterval(obstacleATimerId)
-      }
+      // How do you set this up? Look at the bird + gravity for reference
+      obstacleATimerId = setInterval(() => {},)
     } else {
+      // otherwise, prepare for the next obstacle
       setScore(score => score + 1)
       setObstacleALeft(screenWidth)
       setObstacleAGapStart(-Math.random() * 150)
     }
   }, [obstacleALeft])
 
-  // Set up second obstacle B
-  useEffect(() => {
-    if (obstacleBLeft > -obstacleWidth) {
-      obstacleBTimerId = setInterval(() => {
-        setObstacleBLeft(obstacleBLeft => obstacleBLeft - gameSpeed)
-        }, 30)
-        return () => clearInterval(obstacleBTimerId)
-      } else {
-          setScore(score => score + 1)
-          setObstacleBLeft(screenWidth)
-          setObstacleBGapStart(-Math.random() * 150)
-        }
-  }, [obstacleBLeft])
+  // Set up second obstacle B, similar to A, except use the B variables
 
   // Check for collisions
   useEffect(() => {
 
-    const birdRunIntoTopA = birdBottom < (obstacleAGapStart + obstacleHeight + obstacleWidth/2)
-    const birdRunIntoBottomA = birdBottom > (obstacleAGapStart + obstacleHeight + gap - obstacleWidth/2)
-    const obstacleAAtCenter = obstacleALeft > screenWidth/2 - obstacleWidth/2 && obstacleALeft < screenWidth/2 + obstacleWidth/2
+    // Think of colliding as checking to see if 1) the pipe is in the center and 2) the bird is in either the top or bottom of the screen
 
-    const birdRunIntoTopB = birdBottom < (obstacleBGapStart + obstacleHeight + obstacleWidth/2)
-    const birdRunIntoBottomB = birdBottom > (obstacleBGapStart + obstacleHeight + gap - obstacleWidth/2)
-    const obstacleBAtCenter = obstacleBLeft > screenWidth/2 - obstacleWidth/2 && obstacleBLeft < screenWidth/2 + obstacleWidth/2
+    // What does it mean for the Obstacle to be at the center? Account for the whole width of the pipe
+    const obstacleAAtCenter = false
+
+    // What about whether or not the "bird" is on the top or bottom pipe?
+    const birdRunIntoTopA = false
+    const birdRunIntoBottomA = false
+    
 
     const collisionA = (birdRunIntoTopA || birdRunIntoBottomA) && obstacleAAtCenter
-    const collisionB = (birdRunIntoTopB || birdRunIntoBottomB) && obstacleBAtCenter
 
-    if (collisionA || collisionB) {
+    if (collisionA) {
       console.log("Game Over - Score of " + score)
       gameOver();
     }
   })
 
   const gameOver = () => {
-    clearInterval(gameTimerId)
-    clearInterval(obstacleATimerId)
-    clearInterval(obstacleBTimerId)
-    setIsGameOver(true)
+    // clear all the TimerIds and make it so IsGameOver is true
   }
   
   return (
     <TouchableWithoutFeedback onPress={jump}>
-      <View style={styles.container}>
+      <ImageBackground style={styles.container} source={require('./assets/blahaj_background.png')}>
         {isGameOver && <Text style={{color: "purple"}}>{score}</Text>}
         <Bird 
           birdBottom = {birdBottom} 
@@ -137,15 +121,8 @@ export default function App() {
           gap = {gap}
           obstacleLeft = {obstacleALeft}
         />
-        <Obstacle 
-          color='yellow'
-          obstacleWidth = {obstacleWidth}
-          obstacleHeight = {obstacleHeight}
-          gapLocation = {obstacleBGapStart}
-          gap = {gap}
-          obstacleLeft = {obstacleBLeft}
-        />
-      </View>
+        {/* Make a second Obstacle */}
+      </ImageBackground>
     </TouchableWithoutFeedback>
   )
 }
