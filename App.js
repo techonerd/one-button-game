@@ -26,12 +26,15 @@ export default function App() {
 
   // Set gravity + game speed
   const gravity = 5
-  let gameSpeed = 8
+  const [gameSpeed, setGameSpeed] = useState(8)
+
+  // Set level properties
+  const [gap, setGap] = useState(300)
+  const [level, setLevel] = useState(1)
 
   // Set obstacle properties
   const obstacleWidth = 60
-  const obstacleHeight = 300
-  const gap = 300
+  const obstacleHeight = 600 - gap
 
   // Declare these variables
   let gameTimerId
@@ -76,7 +79,7 @@ export default function App() {
     } else {
       setScore(score => score + 1)
       setObstacleALeft(screenWidth)
-      setObstacleAGapStart(-Math.random() * 150)
+      setObstacleAGapStart(-Math.random() * gap/2)
     }
   }, [obstacleALeft])
 
@@ -96,7 +99,6 @@ export default function App() {
 
   // Check for collisions
   useEffect(() => {
-
     const birdRunIntoTopA = birdBottom < (obstacleAGapStart + obstacleHeight + obstacleWidth/2)
     const birdRunIntoBottomA = birdBottom > (obstacleAGapStart + obstacleHeight + gap - obstacleWidth/2)
     const obstacleAAtCenter = obstacleALeft > screenWidth/2 - obstacleWidth/2 && obstacleALeft < screenWidth/2 + obstacleWidth/2
@@ -113,6 +115,17 @@ export default function App() {
       gameOver();
     }
   })
+
+  // Introduce levels
+  useEffect(() => {
+    if (score % 4 == 0) {
+      setGap(gap => gap * .9)
+      setGameSpeed(gameSpeed => gameSpeed++)
+      setLevel(level => level++)
+      console.log("You are on level " + level + " and gaps are only " + gap + " pixels big!")
+    }
+    console.log("Score: " + score)
+  }, [score])
 
   const gameOver = () => {
     clearInterval(gameTimerId)
