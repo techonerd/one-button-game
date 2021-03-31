@@ -1,33 +1,16 @@
-# flappy-birds-react-native
-A game of flappy birds in react native
+# One Button Game
+This game was built for Local Hack Day: Share 2021's livestream. This repository is the template code needed to participate with the [livestream](https://twitch.tv/mlh). If you like this content, follow [Mara on Twitch](https://twitch.com/maradrinksmilk) or find [Mara on Twitter](https://twitter.com/maradrinksmilk).
 
-In this weeks video we build Flappy Bird, set up with [expo](https://bit.ly/expo-docs).
+This was built using [Ania Kubow's tutorial](https://youtu.be/dhpjjAxKbHE) + [Original GitHub](https://github.com/kubowania/flappy-birds-react-native) as a template and then edited to fit a workshop style.
 
-This is a tutorial for beginners to react-native. As such, a fundamental understanding of JavaScript and React is advised as a prerequisite.
+## Set Up the Environment
+It's assumed you have your own IDE ready!
+1. Install [Node.js](https://nodejs.org/en/) for npm
+2. In your terminal, run `npm install -g expo-cli`. This will make it easier to get your mobile app set up!
+3. `git clone` this repository
+5. `npm start` to open a console in `localhost:19002`
+6. On the left hand side, click `Run in web browser` to get the app visible!
+8. `npm install` to install all necessary dependencies
 
-You can view the video [here](https://youtu.be/dhpjjAxKbHE)
-
-### Video Content:
-* (00:00) Introduction
-* (01:07) Flappy Bird game logic
-* (02:44) Setting up our environment
-* (06:10) Creating our App
-* (07:05) Creating our Bird Component
-* (15:02) Making our Bird fall
-* (19:53) Creating our first Obstacles
-* (23:12) Looping our first Obstacles
-* (35:33) Creating our second Obstacles
-* (39:54) Adding random heights to the Obstacles
-* (44:15) Checking for collisions
-* (49:01) Making a game over
-* (51:29) Making our game touch-screen
-* (53:02) Adding the score
-
-### Useful links:
-* You can find the full expo documentation [here](https://bit.ly/expo-docs)
-
-### If you did like this video, please hit the Like and Subscribe button so I know to make more!
-
-* Twitter: https://twitter.com/ania_kubow
-* YouTube: https://youtube.com/aniakubow
-* Instagram: https://instagram.com/aniakubow
+## Time to Code!
+1. 
